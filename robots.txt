@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /
+
+Sitemap: http://11st-tech.github.io/sitemap.xml

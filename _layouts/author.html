@@ -1,0 +1,23 @@
+---
+layout: default
+---
+
+<div id="cover" class="container">
+    <div>
+        <div id="cover-author-image" {% if page.image %}style="background-image:url({{ page.image }});" {% endif %}>
+            <span class="sr-only">{{ page.name }}'s profile image</span>
+        </div>
+        <h1>{{ page.title | default: page.name }}</h1>
+        {% if page.email %}이메일: <a style="color:#221c6f" href="mailto:{{ page.email }}">{{ page.email }}</a>{% endif %}
+        <p>{{ page.description }}</p>
+    </div>
+</div>
+
+<div id="content" class="container">
+    <div id="author-content" role="main">
+        <ul id="post-list">
+            {% for post in site.posts %} {% if post.author == page.name %} {% include item.html %} {% endif %} {% endfor %}
+        </ul>
+        {% include pagination.html %}
+    </div>
+</div>
