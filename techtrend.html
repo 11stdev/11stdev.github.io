@@ -1,0 +1,116 @@
+---
+layout: default
+---
+
+<div id="content" class="container">
+    <div class="title-content" style="border-bottom: 1px solid #e1e3e4;">
+        <h1 class="title">Tech Trend <span id="items-size" style="font-size: 14px;">({{ site.data.techTrends.size}})</span></h1>
+        <p class="txt">커머스 관련 IT뉴스 및 주요 기술 트렌드 그리고 컨퍼런스 등 행사/이벤트 소식을 공유합니다.</p>
+    </div>
+    <div class="tab-content">
+        <button name="btn-news-category" class="tab-news-category active" value="all" onclick="showItemsByClassName(this)">전체</button>
+        <button name="btn-news-category" class="tab-news-category" value="news" onclick="showItemsByClassName(this)">News</button>
+        <button name="btn-news-category" class="tab-news-category" value="trend" onclick="showItemsByClassName(this)">Trend</button>
+        <button name="btn-news-category" class="tab-news-category" value="event" onclick="showItemsByClassName(this)">Event</button>
+    </div>
+    <div class="search-content">
+        <input type="text" id="input-search-item" name="input-search-item" class="search-box" placeholder="검색어를 입력하세요." />
+        <button onclick="searchItems()" class="btn-search">검색</button>
+    </div>
+    <div id="home-content" role="main">
+        <ul id="news-list" class="">
+            {% assign sortedTechTrends = site.data.techTrends | sort:"id" | reverse %}
+            {% for techTrend in sortedTechTrends %}
+                {% include techtrend_item.html %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<script>
+    var getActivatedCategoryTabElement = function () {
+        var activatedTab;
+        var newsCategoryTabs = document.getElementsByName('btn-news-category');
+        for (let i = 0; i < newsCategoryTabs.length; i++) {
+            var newsCategoryTab = newsCategoryTabs[i];
+            if (newsCategoryTab.classList.contains('active')) {
+                activatedTab = newsCategoryTab;
+            }
+        }
+        return activatedTab;
+    }
+    
+    var isSearchedItemByText = function (item, searchText) {
+        if (searchText !== undefined && searchText === '') {
+            return true;
+        }
+
+        var newsTitleText = item.getElementsByClassName('news-title')[0].innerText.toLowerCase();
+        if (newsTitleText.indexOf(searchText.toLowerCase()) > 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    var isSearchedItemBySelectedCategory = function (item, className) {
+        if (className === 'all') {
+            return true;
+        }
+
+        for (let i = 0; i < item.classList.length; i++) {
+            var classListElement = item.classList[i];
+            if (classListElement === className) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    function searchItems() {
+        var activatedCategoryTab = getActivatedCategoryTabElement();
+
+        var count = 0;
+        var items = document.getElementsByClassName('news-item');
+        var inputSearchingText = document.getElementById('input-search-item').value;
+        for (let i = 0; i < items.length; i++) {
+            var item = items[i];
+            item.style.display = 'none';
+            if (isSearchedItemByText(item, inputSearchingText) && isSearchedItemBySelectedCategory(item, activatedCategoryTab.value)) {
+                item.style.display = 'block';
+                count++;
+            }
+        }
+        setCountToItemsSizeSpan(count)
+    }
+    
+    function showItemsByClassName(_buttonElement) {
+        // remove 'active' in all button's class list
+        var btnElements = document.getElementsByName(_buttonElement.name);
+        for (let i = 0; i < btnElements.length; i++) {
+            var btnElement = btnElements[i];
+            btnElement.classList.remove('active');
+        }
+        
+        // add 'active' in the button's class list
+        _buttonElement.classList.add('active');
+
+        searchItems();
+    }
+
+    function setCountToItemsSizeSpan(count) {
+        // set items count in this header.
+        var itemsSizeSpan = document.getElementById('items-size');
+        itemsSizeSpan.innerText = '(' + count + ')';
+    }
+    
+    var inputSearchItem = document.getElementById("input-search-item");
+    inputSearchItem.addEventListener("keyup", function (event) {
+        var key = event.key || event.keyCode;
+        if (key === 'Enter' || key === 13) {
+            event.preventDefault();
+            searchItems();
+        }
+    });
+</script>

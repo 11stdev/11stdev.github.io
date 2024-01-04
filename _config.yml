@@ -1,0 +1,75 @@
+title: 11번가 TechBlog
+email: dev.11st@11stcorp.com
+description: 11번가 기술블로그입니다. 고객으로부터 신뢰받는 최고의 커머스 플랫폼을 향한 개발문화와 기술을 공유합니다.
+baseurl: ""
+url: "https://11st-tech.github.io"
+timezone: Asia/Seoul
+
+repository: 11st-tech/11st-tech.github.io
+
+permalink: /:year/:month/:day/:title/
+
+excerpt_separator: <!--more-->
+
+markdown: kramdown
+
+krandown:
+    input: GFM
+    highlighter: rouge
+
+plugins:
+    - jekyll-paginate
+
+paginate: 5
+paginate_path: "/page/:num/"
+
+collections:
+    authors:
+        output: true
+        permalink: /authors/:path/
+    tags:
+        output: true
+        permalink: /tags/:path/
+    techtrend-tags:
+      output: true
+      permalink: /techtrend-tags/:path/
+
+defaults:
+    - scope:
+          path: ""
+          type: authors
+      values:
+          layout: author
+    - scope:
+          path: ""
+          type: tags
+      values:
+          layout: tag
+    - scope:
+        path: ""
+        type: techtrend-tags
+      values:
+        layout: techtrend_tag
+
+
+exclude: [README.md, Gemfile, Gemfile.lock]
+
+keep_files: [assets, files]
+github: [metadata]
+# iolo's custom
+# author: dev.11st@11stcorp.com
+image: "/assets/images/bg_index.jpg"
+og_image: "/assets/images/og_image.png"
+asset_url: /assets
+
+google_analytics:
+    ua: "UA-194026329-1"
+facebook:
+    app_id: ""
+    username:
+twitter:
+    username:
+google_plus:
+    username:
+github_url:
+    username: 11st-tech
