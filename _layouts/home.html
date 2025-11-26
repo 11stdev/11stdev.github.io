@@ -1,0 +1,31 @@
+---
+layout: default
+---
+
+<div id="cover" class="container-fluid" {% if site.image %}style="background-image:url({{ site.image }});" {% endif %}>
+    {% if paginator.page == 1 %}
+    <!--[if (gt IE 9)|!(IE)]><!-->
+    <!--
+    <video loop muted preload="metadata" crossorigin="anonymous">
+        <source src="{{ site.asset_url }}/images/blog_cover.webm" type="video/webm" />
+        <source src="{{ site.asset_url }}/images/blog_cover.ogv" type="video/ogg" />
+        <source src="{{ site.asset_url }}/images/blog_cover.mp4" type="video/mp4" />
+    </video>
+    -->
+    <!--<![endif]-->
+    {% endif %}
+
+    <div class="home_cover">
+        <h1>고객으로부터 신뢰받는</h1>
+        <p class="st02">최고의 <span class="st02">커머스 플랫폼</span></p>
+        <p>11번가 TechBlog</p>
+    </div>
+</div>
+
+<!-- <div id="navbar" class="container">
+  <h5>Featured Posts</h5>
+</div> -->
+
+<div id="content" class="container">
+    <div id="home-content" role="main">{{ content }}</div>
+</div>

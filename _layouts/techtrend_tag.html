@@ -1,0 +1,21 @@
+---
+layout: default
+---
+<div id="cover" class="container">
+    <div>
+        <h1>{{ page.name }}</h1>
+    </div>
+</div>
+
+<div id="content" class="container">
+    <div id="tag-content" role="main">
+        <ul id="news-list">
+            {% assign sortedTechTrends = site.data.techTrends | sort:"id" | reverse %}
+            {% for techTrend in sortedTechTrends %}
+                {% if techTrend.tags contains page.name %} 
+                    {% include techtrend_item.html %} 
+                {% endif %} 
+            {% endfor %}
+        </ul>
+    </div>
+</div>

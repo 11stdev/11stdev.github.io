@@ -1,0 +1,13 @@
+{% for author in site.authors %}
+<li class="author_list">
+    <a id="" href="{{ site.baseurl }}{{ author.url }}">
+        <div id="author-image" {% if author.image %}style="background-image:url({{ author.image }});" {% endif %}>
+            <span class="sr-only">{{ author.title }}'s profile image</span>
+        </div>
+        <strong>{{ author.title }}</strong>
+        <span>{{ author.description }}</span>
+    </a>
+</li>
+
+<!-- 스타일 작업이 필요합니다. -->
+{% endfor %}

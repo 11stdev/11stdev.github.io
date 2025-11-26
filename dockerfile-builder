@@ -1,0 +1,7 @@
+FROM ruby:2.7.1-buster
+COPY . /app
+WORKDIR /app
+RUN bundle install && jekyll build
+RUN rm -rf /app/*
+
+CMD ["/bin/bash"]

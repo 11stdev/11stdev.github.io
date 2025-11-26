@@ -1,0 +1,26 @@
+<li class="news-item {{ techTrend.category }}" id="{{ techTrend.id }}">
+
+    <div class="news-info">
+        <span class="news-category">{{ techTrend.category | upcase }}</span>
+        <span class="news-date">{{ techTrend.date | date: '%Y-%m-%d' }}</span>
+    </div>
+
+    <h3 class="news-title">
+        <a href="{{ techTrend.url }}" target="_blank">{{ techTrend.title }}
+            {% assign fiveDaysSeconds = 5 | times: 24 | times: 60 | times: 60 %}
+            {% assign nowDateFiveDaysAgoSec = "now" | date: '%Y-%m-%d' | date: "%s" | minus: fiveDaysSeconds %}
+            {% assign techTrendDateSec = techTrend.date | date: "%s" | minus: 0 %}
+            {% if nowDateFiveDaysAgoSec <= techTrendDateSec %}
+                <em class="ti-new">NEW</em>
+            {% endif %}
+        </a>
+    </h3>
+
+    <p class="news-tags">
+        {% for tag in techTrend.tags %}
+        <a href="{{ site.baseurl }}/techtrend-tags/{{ tag }}" title="{{ tag }}"
+           class="tag tag-technews tag-{{ tag }}">{{ tag }}</a>
+        {% endfor %}
+    </p>
+
+</li>
